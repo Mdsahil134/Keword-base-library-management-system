@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light theme tokens */
+:root {
+    --text-primary: #0f172a;
+    --text-secondary: #0f172a;
+    --text-muted: #334155;
+    --text-placeholder: #94a3b8;
+}
+
+.dashboard-body {
+    background: #f5f5f5;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+}
+
+.search-highlight {
+    background: linear-gradient(120deg, rgba(34, 211, 238, 0.35), rgba(99, 102, 241, 0.35));
+    padding: 0 0.2em;
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+
+.search-glow {
+    box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.15),
+        0 4px 24px rgba(14, 165, 233, 0.12),
+        0 0 40px rgba(99, 102, 241, 0.08);
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+.search-glow {
+    box-shadow: 0 1px 8px rgba(15, 23, 42, 0.06);
+}
+
+.search-glow:focus-within {
+    box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.35),
+        0 8px 32px rgba(14, 165, 233, 0.2),
+        0 0 48px rgba(99, 102, 241, 0.15);
+}
+
+.stat-card,
+.result-card {
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover,
+.result-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    border-color: rgba(56, 189, 248, 0.25);
+}
+
+.stat-card:hover,
+.result-card:hover {
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+    transform: translateY(-4px);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.book-grid-card img {
+    transition: transform 0.25s ease;
+}
+
+.book-grid-card:hover img {
+    transform: scale(1.03);
+}
+
+.btn-glow {
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.2s ease;
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    transform: translateY(-1px);
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-enter {
+    animation: fade-up 0.45s ease forwards;
+}
+
+.suggest-box {
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 60;
+}
+
+.suggest-item {
+    transition: background 0.15s ease;
+}
+
+.input-dark {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 outline-none transition focus:border-sky-500/50 focus:ring-2 focus:ring-sky-500/20;
+}
+
+.select-dark {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-sky-500/50;
+}
+
+.table-clean thead {
+    @apply bg-slate-50 text-slate-500;
+}
+
+.table-clean tbody tr:nth-child(even) {
+    @apply bg-slate-50/60;
+}
+
+.table-clean tbody tr:hover {
+    @apply bg-indigo-50/50;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    border: 2px solid rgba(15, 23, 42, 0.12);
+    border-top-color: #38bdf8;
+    border-radius: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    animation: spin 0.7s linear infinite;
+}
+
+.nav-side-active {
+    @apply border-indigo-200 bg-indigo-50 text-indigo-700;
+}
+
+.nav-side-idle {
+    @apply text-slate-600 hover:border-slate-200 hover:bg-slate-100 hover:text-slate-900;
+}
