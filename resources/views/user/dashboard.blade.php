@@ -147,22 +147,13 @@
 
         <div>
             <h3 class="mb-4 text-lg font-semibold text-slate-900">Recommended for you</h3>
-            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 @forelse($recommendedBooks as $book)
-                    <a href="{{ route('books.show', $book) }}" class="result-card glass book-grid-card block p-3">
-                        @if($book->cover_image)
-                            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="{{ $book->title }} cover" class="h-44 w-full rounded-lg object-cover">
-                        @else
-                            <div class="h-44 w-full rounded-lg bg-slate-100"></div>
-                        @endif
-                        <div>
-                            <p class="mt-3 font-semibold text-slate-900">{{ Str::limit($book->title, 56) }}</p>
-                            <p class="mt-1 text-sm text-slate-500">{{ $book->author }}</p>
-                            <p class="mt-1 text-xs text-slate-500">{{ $book->category }}</p>
-                        </div>
-                    </a>
+                    <x-book-card :book="$book" />
                 @empty
-                    <p class="text-sm text-slate-500">No recommendations yet — start searching.</p>
+                    <div class="col-span-full rounded-2xl border border-slate-200 bg-white p-10 text-center">
+                        <p class="text-sm text-slate-500">No recommendations yet — start searching to get personalized picks.</p>
+                    </div>
                 @endforelse
             </div>
         </div>

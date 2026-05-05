@@ -80,8 +80,44 @@
     transform: translateY(-4px);
 }
 
-.card:hover {
+/* ─── Premium Book Card ─── */
+.book-card {
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, box-shadow;
+}
+
+.book-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+/* Recommended carousel card */
+.book-card-sm {
+    transition:
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease;
+}
+
+.book-card-sm:hover {
     transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* Skeleton loader animation */
+@keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.5s infinite ease-in-out;
+    border-radius: 8px;
 }
 
 .book-grid-card img {
@@ -169,4 +205,13 @@
 
 .nav-side-idle {
     @apply text-slate-600 hover:border-slate-200 hover:bg-slate-100 hover:text-slate-900;
+}
+
+/* ─── Custom scrollbar for horizontal scroll ─── */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

@@ -103,7 +103,7 @@
     </div>
 </aside>
 
-<div id="app-shell" class="flex min-h-screen w-full flex-col overflow-x-hidden transition-all duration-300 md:ml-64">
+<div id="app-shell" class="flex min-h-screen flex-col overflow-x-hidden transition-all duration-300 md:ml-64">
     <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
         <div class="flex w-full max-w-none flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <div class="flex items-center gap-3">
@@ -159,7 +159,7 @@
         @endif
 
         @unless($__minimalChrome)
-            <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
                 <div class="stat-card glass flex flex-col gap-1 p-5">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">Books</span>

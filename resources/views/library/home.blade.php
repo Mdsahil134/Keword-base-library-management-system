@@ -31,49 +31,40 @@
         </form>
     </div>
 
+    {{-- ─── Recommended Books (Horizontal Carousel) ─── --}}
     <section class="mb-10">
-        <div class="mb-3 flex items-center justify-between">
+        <div class="mb-4 flex items-center justify-between">
             <h2 class="text-xl font-semibold text-slate-900">Recommended books</h2>
             <span class="text-sm text-slate-500">New releases</span>
         </div>
-        <div class="flex gap-4 overflow-x-auto pb-3">
+        <div class="scrollbar-hide flex gap-5 overflow-x-auto pb-4">
             @forelse($featuredBooks as $book)
-                <a href="{{ route('books.show', $book) }}" class="glass result-card book-grid-card flex min-w-[220px] items-center gap-3 p-4">
-                    @if($book->cover_image)
-                        <img src="{{ asset('storage/'.$book->cover_image) }}" alt="{{ $book->title }} cover" class="h-24 w-16 rounded-lg object-cover">
-                    @else
-                        <div class="flex h-24 w-16 items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 text-[10px] text-slate-400">No cover</div>
-                    @endif
-                    <div class="min-w-0">
-                        <p class="truncate font-semibold text-slate-900">{{ $book->title }}</p>
-                        <p class="truncate text-sm text-slate-500">{{ $book->author }}</p>
-                        <p class="mt-2 text-xs text-indigo-600">Rating: {{ number_format(min(5, max(3.5, 3.5 + (($book->available_copies ?? 0) / max(1, ($book->total_copies ?? 1))) * 1.5)), 1) }}/5</p>
-                    </div>
-                </a>
+                <div class="w-44 shrink-0">
+                    <x-book-card :book="$book" :showActions="false" />
+                </div>
             @empty
                 <div class="glass w-full p-8 text-center text-sm text-slate-500">No books found.</div>
             @endforelse
         </div>
     </section>
 
+    {{-- ─── Explore Books (Main Grid) ─── --}}
     <section class="mb-8">
-        <div class="mb-3 flex items-center justify-between">
+        <div class="mb-4 flex items-center justify-between">
             <h2 class="text-xl font-semibold text-slate-900">Explore books</h2>
-            <a href="{{ route('search') }}" class="text-sm font-medium text-slate-700 hover:text-slate-900">Open search</a>
+            <a href="{{ route('search') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition">Browse all →</a>
         </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+        <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             @forelse($exploreBooks as $book)
-                <a href="{{ route('books.show', $book) }}" class="glass result-card book-grid-card block p-3">
-                    @if($book->cover_image)
-                        <img src="{{ asset('storage/'.$book->cover_image) }}" alt="{{ $book->title }} cover" class="h-52 w-full rounded-lg object-cover">
-                    @else
-                        <div class="flex h-52 w-full items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 text-xs text-slate-400">No cover</div>
-                    @endif
-                    <p class="mt-3 line-clamp-2 text-sm font-semibold text-slate-900">{{ $book->title }}</p>
-                    <p class="mt-1 text-xs text-slate-500">{{ Str::limit($book->author, 26) }}</p>
-                </a>
+                <x-book-card :book="$book" />
             @empty
-                <div class="glass col-span-full p-10 text-center text-sm text-slate-500">No books available.</div>
+                <div class="col-span-full rounded-2xl border border-slate-200 bg-white p-16 text-center">
+                    <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100">
+                        <svg class="h-8 w-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900">No books available</h3>
+                    <p class="mt-2 text-sm text-slate-500">Check back later for new additions to the library.</p>
+                </div>
             @endforelse
         </div>
         <div class="mt-6">{{ $exploreBooks->links('vendor.pagination.dark-glass') }}</div>
