@@ -6,13 +6,10 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\SearchHistory;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class SearchTrackingTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_authenticated_search_creates_history_and_increments_total(): void
     {
         Category::query()->create(['name' => 'Fiction']);
@@ -29,10 +26,12 @@ class SearchTrackingTest extends TestCase
 
         $this->actingAs($user)->get(route('search', ['q' => 'fiction stories']));
 
-        $this->assertDatabaseHas('search_histories', [
-            'user_id' => $user->id,
-            'query' => 'fiction stories',
-        ]);
+        $this->assertTrue(
+            SearchHistory::query()
+                ->where('user_id', $user->id)
+                ->where('query', 'fiction stories')
+                ->exists()
+        );
         $this->assertSame(1, $user->fresh()->total_searches);
     }
 

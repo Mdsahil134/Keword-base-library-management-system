@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class BookRequest extends Model
 {
+    protected $collection = 'book_requests';
+
     protected $fillable = [
         'user_id',
         'book_id',
@@ -17,6 +19,8 @@ class BookRequest extends Model
     protected function casts(): array
     {
         return [
+            'user_id' => 'string',
+            'book_id' => 'string',
             'issue_date' => 'datetime',
             'return_date' => 'datetime',
         ];

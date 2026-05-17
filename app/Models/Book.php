@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class Book extends Model
 {
+    protected $collection = 'books';
+
     protected $fillable = [
         'title',
         'author',

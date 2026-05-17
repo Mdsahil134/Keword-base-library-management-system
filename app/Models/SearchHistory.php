@@ -2,17 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use MongoDB\Laravel\Eloquent\Model;
 
 class SearchHistory extends Model
 {
+    protected $collection = 'search_histories';
+
     protected $fillable = [
         'user_id',
         'query',
     ];
 
-    public function user(): BelongsTo
+    protected function casts(): array
+    {
+        return [
+            'user_id' => 'string',
+        ];
+    }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }

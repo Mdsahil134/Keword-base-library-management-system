@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\BookRequest;
 use App\Services\BookRecommendationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class UserDashboardController extends Controller
@@ -35,21 +34,18 @@ class UserDashboardController extends Controller
 
         $chartLabels = [];
         $chartData = [];
-        $dayExpr = DB::getDriverName() === 'sqlite'
-            ? "strftime('%Y-%m-%d', created_at) as day"
-            : 'DATE(created_at) as day';
 
         $byDay = $user->searchHistories()
-            ->selectRaw($dayExpr)
-            ->selectRaw('COUNT(*) as c')
             ->where('created_at', '>=', now()->subDays(7))
-            ->groupBy('day')
-            ->orderBy('day')
-            ->get();
+            ->get()
+            ->groupBy(fn ($entry) => $entry->created_at->format('Y-m-d'))
+            ->map(fn ($group, $day) => ['day' => $day, 'c' => $group->count()])
+            ->sortBy('day')
+            ->values();
 
         foreach ($byDay as $row) {
-            $chartLabels[] = $row->day;
-            $chartData[] = (int) $row->c;
+            $chartLabels[] = $row['day'];
+            $chartData[] = $row['c'];
         }
 
         if ($chartLabels === []) {

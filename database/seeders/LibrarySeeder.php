@@ -16,6 +16,7 @@ class LibrarySeeder extends Seeder
             [
                 'name' => 'Library Admin',
                 'password' => 'password',
+                'is_admin' => true,
             ]
         );
 
