@@ -35,7 +35,13 @@ class BookRecommendationService
         }
 
         if ($termWeights === []) {
-            return Book::query()->inRandomOrder()->limit($limit)->get();
+            // MongoDB driver does not support inRandomOrder().
+            return Book::query()
+                ->limit(max($limit * 3, 30))
+                ->get()
+                ->shuffle()
+                ->take($limit)
+                ->values();
         }
 
         arsort($termWeights);

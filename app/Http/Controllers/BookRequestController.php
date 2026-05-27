@@ -12,7 +12,7 @@ class BookRequestController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'book_id' => ['required', 'integer', 'exists:books,id'],
+            'book_id' => ['required', 'string'],
         ]);
 
         $book = Book::query()->findOrFail($validated['book_id']);
